@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hal9001</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -127,7 +127,8 @@
   <span class='kw'>fit_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"glmnet"</span>, <span class='st'>"lassi"</span>), <span class='kw'>n_folds</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>use_min</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>reduce_basis</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"gaussian"</span>, <span class='st'>"binomial"</span>),
   <span class='kw'>return_lasso</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>return_x_basis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>basis_list</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cv_select</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>, <span class='kw'>yolo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>X_unpenalized_ratio</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>cv_select</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>,
+  <span class='kw'>yolo</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,6 +213,12 @@ of the Lasso L1 regression. If <code>NULL</code>, <code>cv.glmnet</code> will be
 automatically select a CV-optimal value of this regularization parameter. If
 specified, the Lasso L1 regression model will be fit via <code>glmnet</code>,
 returning regularized coefficient values for each value in the input array.</p></td>
+    </tr>
+    <tr>
+      <th>X_unpenalized_ratio</th>
+      <td><p>A real value &gt;= 0 dictating the weighted
+contribution of the `X_unpenalized` covariates into the L-1 norm of the
+LASSO penalization</p></td>
     </tr>
     <tr>
       <th>cv_select</th>
