@@ -51,6 +51,9 @@
 #'  automatically select a CV-optimal value of this regularization parameter. If
 #'  specified, the Lasso L1 regression model will be fit via \code{glmnet},
 #'  returning regularized coefficient values for each value in the input array.
+#' @param X_unpenalized_ratio A real value >= 0 dictating the weighted
+#'  contribution of the `X_unpenalized` covariates into the L-1 norm of the
+#'  LASSO penalization
 #' @param cv_select A \code{logical} specifying whether the array of values
 #'  specified should be passed to \code{cv.glmnet} in order to pick the optimal
 #'  value (based on cross-validation) (when set to \code{TRUE}) or to simply
@@ -85,6 +88,7 @@ fit_hal <- function(X,
                     return_x_basis = FALSE,
                     basis_list = NULL,
                     lambda = NULL,
+                    X_unpenalized_ratio = 0,
                     cv_select = TRUE,
                     ...,
                     yolo = TRUE) {
@@ -133,7 +137,7 @@ fit_hal <- function(X,
   )
   if (unpenalized_covariates > 0) {
     x_basis <- cbind(x_basis, X_unpenalized)
-    penalty.factor <- c(penalty.factor, rep(0, ncol(X_unpenalized)))
+    penalty.factor <- c(penalty.factor, rep(X_unpenalized_ratio, ncol(X_unpenalized)))
   }
 
   # bookkeeping: get end time of duplicate removal procedure

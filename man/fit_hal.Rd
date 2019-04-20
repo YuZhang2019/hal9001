@@ -8,7 +8,8 @@ fit_hal(X, Y, X_unpenalized = NULL, degrees = NULL,
   fit_type = c("glmnet", "lassi"), n_folds = 10, use_min = TRUE,
   reduce_basis = NULL, family = c("gaussian", "binomial"),
   return_lasso = FALSE, return_x_basis = FALSE, basis_list = NULL,
-  lambda = NULL, cv_select = TRUE, ..., yolo = TRUE)
+  lambda = NULL, X_unpenalized_ratio = 0, cv_select = TRUE, ...,
+  yolo = TRUE)
 }
 \arguments{
 \item{X}{An input \code{matrix} containing observations and covariates
@@ -65,6 +66,10 @@ of the Lasso L1 regression. If \code{NULL}, \code{cv.glmnet} will be used to
 automatically select a CV-optimal value of this regularization parameter. If
 specified, the Lasso L1 regression model will be fit via \code{glmnet},
 returning regularized coefficient values for each value in the input array.}
+
+\item{X_unpenalized_ratio}{A real value >= 0 dictating the weighted
+contribution of the `X_unpenalized` covariates into the L-1 norm of the
+LASSO penalization}
 
 \item{cv_select}{A \code{logical} specifying whether the array of values
 specified should be passed to \code{cv.glmnet} in order to pick the optimal
