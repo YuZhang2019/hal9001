@@ -53,11 +53,24 @@ predict.hal9001 <- function(object,
   }
 
   # generate predictions
-  preds <- as.vector(Matrix::tcrossprod(
-    x = pred_x_basis,
-    y = object$coefs[-1]
-  ) +
-    object$coefs[1])
+  if (dim(object$coefs)[2] > 1) {
+    # if cv_select = FALSE; there are more than one lambda in the coef
+    # we will return a matrix
+    preds <- matrix(NA, nrow = nrow(pred_x_basis), ncol = dim(object$coefs)[2])
+    for (j in 1:dim(object$coefs)[2]) {
+      preds[, j] <- as.vector(Matrix::tcrossprod(
+        x = pred_x_basis,
+        y = object$coefs[-1, j]
+      ) +
+        object$coefs[1, j])
+    }
+  } else {
+    preds <- as.vector(Matrix::tcrossprod(
+      x = pred_x_basis,
+      y = object$coefs[-1]
+    ) +
+      object$coefs[1])
+  }
 
   # apply logit transformation for logistic regression predictions
   if (object$family == "binomial") {
